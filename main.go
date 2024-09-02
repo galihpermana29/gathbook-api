@@ -6,6 +6,7 @@ import (
 	"learn-golang/middlewares"
 	"learn-golang/models"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -43,6 +44,12 @@ func routes() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
+
+	router.GET("/test", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Hello World!",
+		})
+	})
 
 	router.POST("/auth/signup", controllers.CreateUser)
 	router.POST("/auth/login", controllers.Login)
